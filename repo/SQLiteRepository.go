@@ -3,6 +3,8 @@ package repo
 import (
 	"database/sql"
 	"log"
+	"matthewhope/forum/models"
+	"matthewhope/forum/sqlite"
 )
 
 const (
@@ -29,4 +31,8 @@ func NewSQLiteRepository() *SQLiteRepository {
 	}
 	ret.businessDb = db
 	return ret
+}
+
+func (r *SQLiteRepository) GetAllUsers() ([]models.User, error) {
+	return sqlite.GetAllUsers(r.identityDb)
 }
