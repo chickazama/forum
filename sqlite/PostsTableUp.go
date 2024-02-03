@@ -7,6 +7,8 @@ func PostsTableUp(db *sql.DB) error {
 		PostID INTEGER PRIMARY KEY AUTOINCREMENT,
 		Category TEXT NOT NULL,
 		Content TEXT NOT NULL,
+		Dislikes INTEGER NOT NULL,
+		Likes INTEGER NOT NULL,
 		CreatedAt BIG INTEGER NOT NULL,
 		UpdatedAt BIG INTEGER NOT NULL,
 		UserID INTEGER NOT NULL
