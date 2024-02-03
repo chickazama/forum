@@ -3,7 +3,7 @@ package sqlite
 import "database/sql"
 
 func UsersTableUp(db *sql.DB) error {
-	query := `CREATE TABLE IF NOT EXISTS USERS (
+	query := `CREATE TABLE IF NOT EXISTS "USERS" (
 		UserID INTEGER PRIMARY KEY AUTOINCREMENT,
 		CreatedAt BIG INTEGER NOT NULL,
 		EmailAddress TEXT UNIQUE NOT NULL,
