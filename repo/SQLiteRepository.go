@@ -36,3 +36,7 @@ func NewSQLiteRepository() *SQLiteRepository {
 func (r *SQLiteRepository) GetAllUsers() ([]models.User, error) {
 	return sqlite.GetAllUsers(r.identityDb)
 }
+
+func (r *SQLiteRepository) CreateUser(u models.User) (models.User, error) {
+	return sqlite.CreateUser(r.identityDb, u)
+}
