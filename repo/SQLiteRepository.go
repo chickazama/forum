@@ -9,8 +9,8 @@ import (
 
 const (
 	dbDriver       = "sqlite3"
-	identityDbPath = "./sqlite/data/identity.db"
-	businessDbPath = "./sqlite/data/business.db"
+	identityDbPath = "./sqlite/data/Identity.db"
+	businessDbPath = "./sqlite/data/Business.db"
 )
 
 type SQLiteRepository struct {
