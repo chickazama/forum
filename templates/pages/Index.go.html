@@ -1,9 +1,11 @@
 {{define "Index"}}
 {{template "LayoutStart" .}}
-<main id="main">
+<main class="container" id="main">
     <h1>Home Page</h1>
     {{template "NewPostForm" .}}
-    {{template "Post" .Post}}
+    {{range $p := .Posts}}
+        {{template "Post" .}}
+    {{end}}
 </main>
 <script type="module" src="./static/js/Index.js"></script>
 {{template "LayoutEnd" .}}
