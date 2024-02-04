@@ -1,7 +1,19 @@
 const content = `
-<link href="./static/css/Post.css" rel="stylesheet" type="text/css" />
-<h1><slot name="post-title" class="test">TITLE</slot></h1>
-<h3><slot name="post-body">BODY</h3>
+<style>
+    .test {
+        color: red;
+    }
+    .test:hover {
+        color: blue;
+    }
+    .post {
+        background-color: green;
+    }
+</style>
+<div class="post">
+    <h1><slot name="post-title" class="test">TITLE</slot></h1>
+    <h3><slot name="post-body">BODY></slot></h3>
+</div>
 `;
 
 export default class Post extends HTMLElement {
