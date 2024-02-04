@@ -2,31 +2,48 @@ import Post from "./components/Post.js";
 
 customElements.define("post-component", Post);
 
-// window.addEventListener("load", () => {
-//     const main = document.getElementById("main");
-//     const button = document.createElement("button");
-//     button.innerText = "Click me!";
-//     button.type = "button";
-//     button.addEventListener("click", () => {
-//         let posts = document.getElementsByTagName("post-component");
-//         main.removeChild(posts[0]);
-//     })
-//     main.appendChild(button);
-//     for (let i = 0; i < 10; i++) {
-//         let data = {
-//             title: `POST ${i+1}`,
-//             body: `BODY ${i+1}`
-//         };
-//         const p = createPost(data);
-//         main.appendChild(p);
-//     }
-// })
+window.addEventListener("load", async () => {
+    const main = document.getElementById("main");
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.innerText = "Click Me!";
+    btn.addEventListener("click", ()=> {
+        removePostByID(1);
+    })
+    main.appendChild(btn);
+    const res = await fetch("http://localhost:7777/posts");
+    const body = await res.json();
+    for (const data of body) {
+        console.log(data);
+        const post = createPost(data);
+        main.appendChild(post);
+    }
+})
 
-// function createPost(data) {
-//     const p = document.createElement("post-component");
-//     p.innerHTML = `
-//         <span slot="post-title">${data.title}</span>
-//         <span slot="post-body">${data.body}</span>
-//     `;
-//     return p;
-// }
+function createPost(data) {
+    const p = document.createElement("post-component");
+    p.id = `post-${data.PostID}`;
+    p.innerHTML = `
+        <span slot="post-category">${data.Category}</span>
+        <span slot="post-content">${data.Content}</span>
+    `;
+    return p;
+}
+
+function removePost(data) {
+    const main = document.getElementById("main");
+    const p = document.getElementById(`post-${data.PostID}`);
+    if (!p) {
+        return;
+    }
+    main.removeChild(p);
+}
+
+function removePostByID(id) {
+    const main = document.getElementById("main");
+    const p = document.getElementById(`post-${id}`);
+    if (!p) {
+        return;
+    }
+    main.removeChild(p);
+}
