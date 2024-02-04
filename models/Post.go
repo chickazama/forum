@@ -10,3 +10,7 @@ type Post struct {
 	UpdatedAt int64
 	UserID    int
 }
+
+func (p *Post) Validate() error {
+	return nil
+}
