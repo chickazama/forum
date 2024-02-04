@@ -44,3 +44,7 @@ func (r *SQLiteRepository) CreateUser(u models.User) (models.User, error) {
 func (r *SQLiteRepository) GetAllPosts() ([]models.Post, error) {
 	return sqlite.GetAllPosts(r.businessDb)
 }
+
+func (r *SQLiteRepository) CreatePost(p models.Post) (models.Post, error) {
+	return sqlite.CreatePost(r.businessDb, p)
+}
