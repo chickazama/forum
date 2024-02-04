@@ -1,11 +1,9 @@
 package main
 
 import (
-	"database/sql"
 	"log"
 	"matthewhope/forum/api"
 	"matthewhope/forum/repo"
-	"matthewhope/forum/sqlite"
 	"matthewhope/forum/ui"
 	"net/http"
 
@@ -13,31 +11,35 @@ import (
 )
 
 func main() {
-	db, err := sql.Open("sqlite3", "./sqlite/data/Identity.db")
-	if err != nil {
-		log.Fatal(err.Error())
-	}
-	businessDb, err := sql.Open("sqlite3", "./sqlite/data/Business.db")
-	if err != nil {
-		log.Fatal(err.Error())
-	}
-	err = sqlite.PostsTableDown(businessDb)
-	if err != nil {
-		log.Fatal(err.Error())
-	}
-	err = sqlite.UsersTableUp(db)
-	if err != nil {
-		log.Fatal(err.Error())
-	}
-	err = sqlite.PostsTableUp(businessDb)
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+	// db, err := sql.Open("sqlite3", "./sqlite/data/Identity.db")
+	// if err != nil {
+	// 	log.Fatal(err.Error())
+	// }
+	// businessDb, err := sql.Open("sqlite3", "./sqlite/data/Business.db")
+	// if err != nil {
+	// 	log.Fatal(err.Error())
+	// }
+	// err = sqlite.PostsTableDown(businessDb)
+	// if err != nil {
+	// 	log.Fatal(err.Error())
+	// }
+	// err = sqlite.UsersTableUp(db)
+	// if err != nil {
+	// 	log.Fatal(err.Error())
+	// }
+	// err = sqlite.PostsTableUp(businessDb)
+	// if err != nil {
+	// 	log.Fatal(err.Error())
+	// }
+	// p := transport.PostDTO(models.Post{PostID: 1, Category: "Example", Content: "Test"})
+	// fmt.Println(p)
 	mux := http.NewServeMux()
 	serveStaticFiles(mux)
-	mux.Handle("/", ui.NewIndexHandler())
-	mux.Handle("/users", api.NewUsersHandler(repo.NewSQLiteRepository()))
-	err = http.ListenAndServe(":7777", mux)
+	r := repo.NewSQLiteRepository()
+	mux.Handle("/", ui.NewIndexHandler(r))
+	mux.Handle("/posts", api.NewPostsHandler(r))
+	mux.Handle("/users", api.NewUsersHandler(r))
+	err := http.ListenAndServe(":7777", mux)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
