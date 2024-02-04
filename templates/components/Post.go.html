@@ -1,6 +1,12 @@
 {{define "Post"}}
 <post-component id="from-server">
-    <span slot="post-title">{{.Title}}</span>
-    <span slot="post-body">{{.Body}}</span>
+    <span slot="post-id">{{.PostID}}</span>
+    <span slot="post-category">{{.Category}}</span>
+    <span slot="post-content">{{.Content}}</span>
+    <span slot="post-created-at">{{.CreatedAt}}</span>
+    <span slot="post-dislikes">{{.Dislikes}}</span>
+    <span slot="post-likes">{{.Likes}}</span>
+    <span slot="post-updated-at">{{.UpdatedAt}}</span>
+    <span slot="post-user-id">{{.UserID}}</span>
 </post-component>
 {{end}}
