@@ -40,3 +40,7 @@ func (r *SQLiteRepository) GetAllUsers() ([]models.User, error) {
 func (r *SQLiteRepository) CreateUser(u models.User) (models.User, error) {
 	return sqlite.CreateUser(r.identityDb, u)
 }
+
+func (r *SQLiteRepository) GetAllPosts() ([]models.Post, error) {
+	return sqlite.GetAllPosts(r.businessDb)
+}
