@@ -11,8 +11,10 @@ const content = `
     }
 </style>
 <div class="post">
-    <h1><slot name="post-title" class="test">TITLE</slot></h1>
-    <h3><slot name="post-body">BODY></slot></h3>
+    <h1><slot name="post-category" class="test">CATEGORY</slot></h1>
+    <h3><slot name="post-content">CONTENT</slot></h3>
+    <h5>Likes: <slot name="post-likes">LIKES</slot></h5>
+    <h5>Dislikes: <slot name="post-dislikes">DISLIKES</slot></h5>
 </div>
 `;
 
