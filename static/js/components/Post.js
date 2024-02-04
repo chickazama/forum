@@ -6,9 +6,6 @@ const content = `
     .test:hover {
         color: blue;
     }
-    .post {
-        background-color: green;
-    }
 </style>
 <div class="post">
     <h1><slot name="post-category" class="test">CATEGORY</slot></h1>
