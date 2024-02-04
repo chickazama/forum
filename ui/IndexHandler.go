@@ -2,15 +2,23 @@ package ui
 
 import (
 	"log"
+	"matthewhope/forum/repo"
+	"matthewhope/forum/transport"
 	"net/http"
 )
 
-type IndexHandler struct {
-	templateName string
+type IndexViewModel struct {
+	Title string
+	Posts []transport.PostDTO
 }
 
-func NewIndexHandler() *IndexHandler {
-	return &IndexHandler{templateName: "Index"}
+type IndexHandler struct {
+	templateName string
+	Repo         repo.IRepository
+}
+
+func NewIndexHandler(r repo.IRepository) *IndexHandler {
+	return &IndexHandler{templateName: "Index", Repo: r}
 }
 
 func (h *IndexHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -23,7 +31,18 @@ func (h *IndexHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *IndexHandler) get(w http.ResponseWriter, r *http.Request) {
-	err := tmpl.ExecuteTemplate(w, h.templateName, nil)
+	posts, err := h.Repo.GetAllPosts()
+	if err != nil {
+		log.Println(err.Error())
+		http.Error(w, "internal server error", http.StatusInternalServerError)
+		return
+	}
+	data := make([]transport.PostDTO, len(posts))
+	for i, p := range posts {
+		data[i] = transport.PostDTO(p)
+	}
+	vm := IndexViewModel{Title: "Home Page", Posts: data}
+	err = tmpl.ExecuteTemplate(w, h.templateName, vm)
 	if err != nil {
 		log.Println(err.Error())
 		http.Error(w, "internal server error", http.StatusInternalServerError)
