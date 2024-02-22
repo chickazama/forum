@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"matthewhope/forum/api"
 	"matthewhope/forum/repo"
@@ -39,6 +40,7 @@ func main() {
 	mux.Handle("/", ui.NewIndexHandler(r))
 	mux.Handle("/posts", api.NewPostsHandler(r))
 	mux.Handle("/users", api.NewUsersHandler(r))
+	fmt.Println("Setting up server...")
 	err := http.ListenAndServe(":7777", mux)
 	if err != nil {
 		log.Fatal(err.Error())
