@@ -33,6 +33,14 @@ func NewSQLiteRepository() *SQLiteRepository {
 	return ret
 }
 
+func (r *SQLiteRepository) PostsTableUp() error {
+	return sqlite.PostsTableUp(r.businessDb)
+}
+
+func (r *SQLiteRepository) UsersTableUp() error {
+	return sqlite.UsersTableUp(r.identityDb)
+}
+
 func (r *SQLiteRepository) GetAllUsers() ([]models.User, error) {
 	return sqlite.GetAllUsers(r.identityDb)
 }
