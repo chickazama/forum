@@ -30,6 +30,14 @@ func NewSQLiteRepository() *SQLiteRepository {
 		log.Fatal(err.Error())
 	}
 	ret.businessDb = db
+	err = ret.PostsTableUp()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	err = ret.UsersTableUp()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
 	return ret
 }
 
